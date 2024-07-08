@@ -33,13 +33,14 @@
       </div>
     </div>
   </div>
-
-
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io();
+  const loggedInUsername = "<%= user.username %>"
+
+  socket.emit('join', loggedInUsername)
 </script>
 
 <script>

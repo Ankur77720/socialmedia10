@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema(
             default: 0,
         },
         posts: [ { type: mongoose.Schema.Types.ObjectId, ref: "post" } ],
+        socketId: String,
     },
     { timestamps: true }
 );
