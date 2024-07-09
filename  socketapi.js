@@ -9,14 +9,26 @@ io.on("connection", function (socket) {
     console.log("kuch bhi")
 
     socket.on('join', async username => {
-
         await userModel.findOneAndUpdate({
             username
         }, {
             socketId: socket.id
         })
+    })
+
+    socket.on('sony', async messageObject => {
+
+        const receiver = await userModel.findOne({
+            username: messageObject.receiver
+        })
+
+        const socketId = receiver.socketId
+
+        socket.to(socketId).emit('max', messageObject)
 
     })
+
+
 
 });
 // end of socket.io logic
