@@ -1,6 +1,14 @@
 var express = require("express");
 var router = express.Router();
 
+const Razorpay = require("razorpay");
+
+var instance = new Razorpay({
+    key_id: process.env.KEY_ID,
+    key_secret: process.env.KEY_SECRET,
+});
+
+
 const passport = require("passport");
 const LocalStategy = require("passport-local");
 const UserCollection = require("../models/user.schema");
@@ -183,6 +191,22 @@ router.get('/chat', isLoggedIn, async (req, res, next) => {
         user: req.user,
         users
     })
+})
+
+router.post('/create-order', isLoggedIn, async (req, res, next) => {
+
+    console.log(req.body)
+
+    var options = {
+        amount: 5000 * 100,  // amount in the smallest currency unit
+        currency: "INR",
+    };
+    instance.orders.create(options, function (err, order) {
+        console.log(order);
+        res.json(order);
+    });
+
+
 })
 
 module.exports = router;
