@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
         },
         posts: [ { type: mongoose.Schema.Types.ObjectId, ref: "post" } ],
         socketId: String,
+        isPremium: {
+            type: Boolean,
+            default: false,
+        },
     },
     { timestamps: true }
 );
